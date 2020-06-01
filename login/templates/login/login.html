@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+</head>
+<body>
+{% if user.username %}
+    <h2>Bonjour {{ user.username }}</h2>
+{% endif %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="form-elem">
+        <div>Nom d'utilisateur :</div>
+        <input type="text" id="username" name="username"/>
+    </div>
+    <div class="form-elem">
+        <div>Mot de passe :</div>
+        <input type="text" name="password"/>
+    </div>
+    <div class="form-elem">
+        <input class="logBtn" type="submit" value="Login">
+    </div>
+</form>
+</body>
+</html>
