@@ -1,0 +1,38 @@
+{% extends 'content/base.html' %}
+{% block content %}
+    <h2 class="title">Liste des recettes</h2>
+    <div class="columns is-multiline">
+        {% for recipe in recipes %}
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            {% if recipe.photo %}
+                                <img src="{{ recipe.photo.url }}" class="image is-64x64"/>
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4">{{ recipe.title }}</p>
+                                <p class="subtitle is-6">{{ recipe.author }}</p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            {% for ing in recipe.get_ingredientList %}
+                                <p>{{ ing.quantity }}{{ ing.unity }} {{ ing.ingredient.name|lower }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
