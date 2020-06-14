@@ -29,6 +29,7 @@ urlpatterns = [
                   path('login/', lviews.user_login, name='login'),
                   path('logout/', lviews.user_logout, name='logout'),
                   path('recettes/', cviews.recipe_list, name='recipes'),
+                  path('detail-recette/<int:recipe_id>/', cviews.recipe_detail, name='detail'),
                   path('api/docs/', swviews.get_swagger_view()),
                   path('api/', include('api.urls')),
                   path('api-token-auth/', obtain_auth_token, name='api_token_auth'),

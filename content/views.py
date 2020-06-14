@@ -11,3 +11,11 @@ def recipe_list(request):
     }
 
     return render(request, 'content/recipes.html', context)
+
+
+def recipe_detail(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    context = {
+        'recipe': recipe,
+    }
+    return render(request, 'content/detail.html', context)
