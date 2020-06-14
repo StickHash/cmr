@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
 
 from login import views as lviews
 from content import views as cviews
+from rest_framework_swagger import views as swviews
 
 urlpatterns = [
                   path('', lviews.auth_user, name='home'),
@@ -27,4 +29,7 @@ urlpatterns = [
                   path('login/', lviews.user_login, name='login'),
                   path('logout/', lviews.user_logout, name='logout'),
                   path('recettes/', cviews.recipe_list, name='recipes'),
+                  path('api/docs/', swviews.get_swagger_view()),
+                  path('api/', include('api.urls')),
+                  path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
