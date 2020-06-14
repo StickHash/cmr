@@ -18,6 +18,16 @@ class Recipe(models.Model):
     def get_ingredientList(self):
         return IngredientLine.objects.filter(recipe=self)
 
+    def get_stepList(self):
+        return Step.objects.filter(recipe=self)
+
+
+class Step(models.Model):
+    sequence = models.IntegerField()
+    description = models.TextField()
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='recipes/steps/', null=True)
+
 
 class IngredientLine(models.Model):
     GRAMMES = 'gr'
