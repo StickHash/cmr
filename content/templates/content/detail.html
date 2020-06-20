@@ -1,4 +1,13 @@
 {% extends 'content/base.html' %}
 {% block content %}
     <h1>Titre de la recette: {{ recipe.title }}</h1>
+    <h2>Liste des ingrédient</h2>
+    {% for ing in recipe.get_ingredientList %}
+        <p>{{ ing.quantity }}{{ ing.unity }} {{ ing.ingredient.name|lower }}</p>
+    {% endfor %}
+    <h2>Etapes</h2>
+    {% for step in recipe.get_stepList %}
+        <p>{{ step.sequence }}- {{ step.description }} <img src="{{ step.photo.url }}" alt="" class="image is-128x128">
+        </p>
+    {% endfor %}
 {% endblock %}
