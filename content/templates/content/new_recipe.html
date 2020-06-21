@@ -27,9 +27,48 @@
                     </span>
             </label>
         </div>
-        {{ ingForm }}
-        <input type="submit" value="Valider" class="button is-dark">
+        <div id="ingredients">
+            {% for form in ingForm %}
+                <div class="field">
+                    {{ form.ingredient.errors }}
+                    <label for="{{ form.ingredient.id_for_label }}"
+                           class="label">Ingrédient </label>
+                    {{ form.ingredient|addclass:'input is-primary' }}
+                </div>
+                <div class="field">
+                    {{ form.quantity.errors }}
+                    <label for="{{ form.quantity.id_for_label }}" class="label">Quantité</label>
+                    {{ form.quantity|addclass:'input is-primary' }}
+                </div>
+                <div class="field">
+                    {{ form.unity.errors }}
+                    <label for="{{ form.unity.id_for_label }}" class="label">Unité</label>
+                    {{ form.unity|addclass:'input is-primary' }}
+                </div>
+            {% endfor %}
+        </div>
+        {{ ingForm.management_form }}
+        <p class="button is-rounded is-black" onclick="addIngredient()">+</p>
+        <p><input type="submit" value="Valider" class="button is-dark"></p>
     </form>
+    <div id="ingredient-form" style="display: none">
+        <div class="field">
+            {{ ingForm.empty_form.ingredient.errors }}
+            <label for="{{ ingForm.empty_form.ingredient.id_for_label }}"
+                   class="label">Ingrédient </label>
+            {{ ingForm.empty_form.ingredient|addclass:'input is-primary' }}
+        </div>
+        <div class="field">
+            {{ ingForm.empty_form.quantity.errors }}
+            <label for="{{ ingForm.empty_form.quantity.id_for_label }}" class="label">Quantité</label>
+            {{ ingForm.empty_form.quantity|addclass:'input is-primary' }}
+        </div>
+        <div class="field">
+            {{ ingForm.empty_form.unity.errors }}
+            <label for="{{ ingForm.empty_form.unity.id_for_label }}" class="label">Unité</label>
+            {{ ingForm.empty_form.unity|addclass:'input is-primary' }}
+        </div>
+    </div>
 
     <script>
         fileselect = document.getElementById("id_photo")
@@ -47,5 +86,14 @@
             var src = document.getElementById("id_photo");
             var target = document.getElementById("selected_image");
             showImage(src, target);
-        }</script>
+        }
+
+        function addIngredient() {
+            var form_idx = document.getElementById("id_form-TOTAL_FORMS").value;
+            ingredientList = document.getElementById("ingredients");
+            ingredientFormHtml = document.getElementById("ingredient-form").innerHTML;
+            ingredientList.innerHTML += ingredientFormHtml.replace(/__prefix__/g, form_idx);
+            document.getElementById("id_form-TOTAL_FORMS").value = parseInt(form_idx) + 1;
+        }
+    </script>
 {% endblock %}

@@ -13,3 +13,4 @@ class IngredientLineForm(forms.ModelForm):
     class Meta:
         model = IngredientLine
         fields = ('ingredient', 'quantity', 'unity')
+
